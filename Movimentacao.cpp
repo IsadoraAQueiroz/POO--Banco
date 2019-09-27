@@ -15,24 +15,11 @@ Movimentacao::Movimentacao(string sobre, char tipo, double quantia)
 {
     time_t agora;
     time(&agora);
-    dataMov = localtime(&agora);
+    struct tm* datahora;
+    datahora = localtime(&agora);
+    dataMov = Add0((datahora -> tm_year) + 1900);
+    dataMov = dataMov + "/" + Add0(datahora -> tm_mon) + "/" + Add0(datahora -> tm_mday);
     descricao = sobre;
     debitoCredito = tipo;
     valor = quantia;
-}
-
-string Movimentacao::hora()
-{
-    string Hora;
-    Hora = Add0(dataMov -> tm_hour) + ":" + Add0(dataMov -> tm_min);
-    Hora = Hora + ":" + Add0(dataMov -> tm_sec);
-    return Hora;
-}
-
-string Movimentacao::data()
-{
-    string Data;
-    Data = Add0(dataMov -> tm_mday) + "/" + Add0(dataMov -> tm_mon) + "/";
-    Data = Data + Add0(dataMov -> tm_year + 1900);
-    return Data;
 }
