@@ -4,14 +4,17 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
+nomeCliente;
+cpf_cnpj;
+endereco;
+fone
 using std::string;
 
 class Banco{
 	public:
 		Banco(string nomeBanco);
-		void novoCliente(list<string> &Clientes;);  //recebe de parametro cliente que é uma lista
-		void novaConta(list<string> &Contas);  //recebe de parametro cliente que é uma lista
+		void novoCliente(Cliente& Cliente);  //recebe de parametro cliente
+		void novaConta(Cliente& Cliente);  //recebe de parametro cliente 
 		void excluiCliente(string cpf_cnpj);  //recebe parametro ou CPF ou CNPJ
 		void excluiConta(int numConta);  //recebe parametro numero conta
 		void deposito(int numConta,float deposito);	//recebe de parametros numero conta, valor de deposito
@@ -28,6 +31,8 @@ class Banco{
 		escreve();
 		
 	private:
+		friendly class Cliente;
+		friendly class conta;
 		string nomeBanco;
 		list<string> Clientes;
 		list<string> Contas;
