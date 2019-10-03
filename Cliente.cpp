@@ -30,3 +30,9 @@ Cliente::Cliente(string nome, string documento)
     endereco = "";
     fone = "";
 }
+
+bool Cliente::operator!= (Cliente x)
+{
+    if(x.nomeCliente != nomeCliente || x.cpf_cnpj != cpf_cnpj || x.fone != fone || x.endereco != endereco)
+        return true;
+}
