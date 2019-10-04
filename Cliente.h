@@ -23,6 +23,7 @@ class Cliente
         inline void Setendereco(string val) { endereco = val; }
         inline string Getfone() { return fone; }
         inline void Setfone(string val) { fone = val; }
+        bool operator!= (Cliente);
 };
 
 #endif // CLIENTE_H
