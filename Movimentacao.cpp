@@ -18,7 +18,7 @@ Movimentacao::Movimentacao(string sobre, char tipo, double quantia)
     struct tm* datahora;
     datahora = localtime(&agora);
     dataMov = Add0((datahora -> tm_year) + 1900);
-    dataMov = dataMov + "/" + Add0(datahora -> tm_mon) + "/" + Add0(datahora -> tm_mday);
+    dataMov = dataMov + "/" + Add0(datahora -> tm_mon + 1) + "/" + Add0(datahora -> tm_mday);
     descricao = sobre;
     debitoCredito = tipo;
     valor = quantia;
