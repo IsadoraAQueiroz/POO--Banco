@@ -5,10 +5,12 @@
 #include "Movimentacao.h"
 #include "Conta.h"
 #include "banco.h"
+#include <list>
 
 using std::cout;
 using std::cin;
 using std::endl;
+using std::list;
 
 class Interface
 {
@@ -20,7 +22,7 @@ class Interface
         //
         int Menu(&banco);
         //
-        void NovoCliente(&banco);
+        void NovoCliente(banco &aberto);
         //
         void NovaConta (&banco);
         //
