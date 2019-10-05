@@ -12,8 +12,6 @@ string Add0 (int num)
     return caixa;
 }
 
-
-
 Banco::Banco(string nomebanco){
 	nomeBanco = nomebanco;
 }
@@ -26,19 +24,37 @@ void Banco::novaConta(Cliente& cliente){
 	Contas.push_back(novaConta);
 }
 
-//Prï¿½-condiï¿½ï¿½o: o cliente nï¿½o pode ter uma conta
+//Pre-condicao: o cliente nao pode ter uma conta
 void Banco::excluiCliente(string cpf_cnpj){
-}
-/* VERIFICAR FIND_IF
-void Banco::excluiConta(int numConta){
-	auto it = find_if(Contas.begin(), Contas.end(), [&numConta](const string& obj) {});;
-	if (it != Contas.end())
-	{
-		Contas.erase(it);
+	for(auto it1:Clientes){
+        if(it1.Getcpf_cnpj()==cpf_cnpj){
+            for(auto it2:Contas){
+            	if(it2.getCliente()==it1.nomeCliente){
+            		cout<< "Operacacao nao pode ser efetuada"<<endl<< "Para fazer excluir o cliente, o mesmo nao pode ter uma conta";
+            		break;
+				}				
+			}
+			Clientes.erase(it1);
+        }
 	}
-}*/
+}
+
+void Banco::excluiConta(int numConta){
+	for(auto it1:Contas){
+        if(it1.getNumConta()==numConta){
+            Contas.erase(it);
+            break;
+        }
+	}
+}
 
 void Banco::deposito(int numConta,float deposito){
+	for(auto it1:Contas){
+        if(it1.getNumConta()==numConta){
+            it1.credita(deposito, "Deposito");
+            break;
+        }
+	}
 }
 
 void Banco::saque(int numConta,float saque){
@@ -55,8 +71,8 @@ void Banco::transferencia(int numContaOrigem, int numContaDestino, float transfe
         if(it1.getNumConta()==numContaOrigem){
             for(auto it2:Contas){
                 if(it2.getNumConta()==numContaDestino){
-                    it1.debita(transferencia, "TransferÃªncia para conta " + to_string(numContaDestino));
-                    it2.credita(transferencia, "TransferÃªncia da conta " + to_string(numContaOrigem));
+                    it1.debita(transferencia, "Transferência para conta " + to_string(numContaDestino));
+                    it2.credita(transferencia, "Transferência da conta " + to_string(numContaOrigem));
                 }
             }
         }
@@ -87,7 +103,7 @@ void Banco::CPMF(){
 			soma = soma + it2.Getvalor();
 		}
 		double cpmf = soma * 0.0038;
-		it.debita(cpmf, "CobranÃ§a de CPMF");
+		it.debita(cpmf, "Cobrança de CPMF");
 	}
 }
 
@@ -98,12 +114,44 @@ double Banco::saldo(int numConta){
             s = it1.getSaldo();
             break;
         }
-	}return s;
+	}
+	return s;
 }
-void Banco::extratoAtual(int numConta){
+
+void  Banco::extratoAtual(int numConta){
+	time_t agora;
+    string hj;
+    time(&agora);
+    struct tm* datahora;
+    datahora = localtime(&agora);
+    hj = Add0((datahora -> tm_year) + 1900);
+    hj = hj + "/" + Add0(datahora -> tm_mon+1) + "/" + "01";
+    for(auto it1:Contas){
+        if(it1.getNumConta()==numConta){
+            it1.extratoAtual(hj);
+            break;
+        }
+	}        
 }
-void Banco::extratoEspecifico(int numConta,int data){
+
+void  Banco::extratoEspecificoInicio(int numConta,string data){
+	for(auto it1:Contas){
+        if(it1.getNumConta()==numConta){
+            it1.extratoAtual(data);
+            break;
+        }
+	}
 }
+
+void  Banco::extratoEspecificoPeriodo(int numConta,string dataInicio,string dataFinal){
+	for(auto it1:Contas){
+        if(it1.getNumConta()==numConta){
+            it1.extratoDias(dataInicio,dataFinal);
+            break;
+        }
+	}
+}
+
 /*
 void Banco::le(string x)
 {
@@ -163,6 +211,15 @@ void Banco::escreve(string x){
 	dados.close();
 }
 
-//A descobrir
-//	list<Banco> getClientes;	//deve listar todos os clietes ???
-//	list<Banco> getContass;	//deve listar todos as contas  ???
+void Banco::list<Banco> getClientes{
+	for(auto it1:Clientes){
+        cout<<it1<<endl;
+	}
+}
+
+void Banco::list<Banco> getContas{
+	for(auto it1:Contas){
+        cout<<it1<<endl;
+	}
+}
+
